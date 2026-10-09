@@ -1,92 +1,218 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { services } from '../data/site';
+import { company, services } from '../data/site';
+
+const serviceLabels = ['MONETIZATION', 'STRATEGY', 'RESEARCH'];
+const concerns = [
+  { title: '保有特許を、もっと活かしたい', text: '活用できる特許を整理し、ライセンスや譲渡の可能性を検討したい。', service: services[0] },
+  { title: '事業に合った知財戦略を描きたい', text: '研究開発の方向性や競合動向を踏まえ、出願・保有の方針を考えたい。', service: services[1] },
+  { title: '開発・事業化の判断材料がほしい', text: '先行技術や関連特許を調べ、次の意思決定に役立てたい。', service: services[2] },
+];
+const principles = [
+  { title: '事業の視点から考える', text: '特許だけを見るのではなく、事業計画や研究開発の方向性を踏まえ、知財の役割を考えます。' },
+  { title: '調査・分析を判断につなげる', text: '保有特許の評価や関連文献の調査を通じて、活用方針や戦略を検討するための材料を整理します。' },
+  { title: '次の一歩を具体化する', text: 'ライセンス・譲渡の検討から出願方針、交渉に向けた準備まで、課題に応じた取り組みを支援します。' },
+];
 ---
 
 <BaseLayout>
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> INTELLECTUAL PROPERTY CONSULTING</p>
+        <h1 id="hero-title">特許を、<br />事業の力に。</h1>
+        <p class="hero-subtitle">技術の可能性を、ビジネスの価値へ。</p>
+        <p class="hero-description">特許の活用・収益化から、知財戦略の策定、先行技術調査まで。ＡＭパートナーズは、企業の知的財産に関する課題に寄り添います。</p>
+        <div class="hero-actions">
+          <a href="/contact/" class="button hero-button">知財について相談する <span aria-hidden="true">↗</span></a>
+          <a href="#services" class="hero-link">事業内容を見る <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 480 480" fill="none">
+          <defs>
+            <linearGradient id="orbit-gradient" x1="40" y1="60" x2="450" y2="440" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#8bbabb" /><stop offset="1" stop-color="#8bbabb" stop-opacity="0.08" />
+            </linearGradient>
+            <pattern id="visual-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M40 0H0V40" stroke="#fff" stroke-opacity="0.05" />
+            </pattern>
+          </defs>
+          <path fill="url(#visual-grid)" d="M0 0h480v480H0z" />
+          <circle cx="240" cy="240" r="188" stroke="url(#orbit-gradient)" />
+          <circle cx="240" cy="240" r="145" stroke="#fff" stroke-opacity="0.14" stroke-dasharray="3 8" />
+          <path d="M128 132L366 172L266 374Z" stroke="#81b8bd" stroke-opacity="0.6" />
+          <path d="M128 132L240 240L366 172M240 240L266 374" stroke="#81b8bd" stroke-opacity="0.6" />
+          <circle cx="240" cy="240" r="78" fill="#173f51" stroke="#81b8bd" />
+          <circle cx="240" cy="240" r="66" stroke="#81b8bd" stroke-opacity="0.2" />
+          <text x="240" y="233" text-anchor="middle" fill="#b5d8d8" font-size="11" letter-spacing="2">BUSINESS VALUE</text>
+          <text x="240" y="262" text-anchor="middle" fill="white" font-size="23" font-weight="700">事業価値</text>
+          <circle cx="128" cy="132" r="8" fill="#a9d5d3" />
+          <circle cx="366" cy="172" r="8" fill="#a9d5d3" />
+          <circle cx="266" cy="374" r="8" fill="#a9d5d3" />
+          <text x="128" y="102" text-anchor="middle" fill="white" font-size="16">特許の活用</text>
+          <text x="366" y="145" text-anchor="middle" fill="white" font-size="16">知財戦略</text>
+          <text x="266" y="411" text-anchor="middle" fill="white" font-size="16">調査・分析</text>
+          <circle cx="57" cy="283" r="4" fill="#81b8bd" />
+          <circle cx="390" cy="353" r="4" fill="#81b8bd" />
+        </svg>
+        <p>CONNECTING IDEAS TO VALUE</p>
+      </div>
+    </div>
+    <div class="hero-bottom container"><span>ＡＭパートナーズ合同会社</span><span>知的財産に関するコンサルティング</span></div>
+  </section>
+
+  <section id="services" class="home-section" aria-labelledby="services-title">
     <div class="container">
-      <h1>特許を、事業の力に。</h1>
-      <p class="lead">
-        ＡＭパートナーズ合同会社は、特許の活用・収益化から知財戦略の策定、先行技術調査まで、<br class="pc-only" />
-        企業の知的財産に関する課題に寄り添う知財コンサルティング会社です。
-      </p>
-      <a href="/contact/" class="button">お問い合わせ</a>
+      <div class="section-heading">
+        <div><p class="eyebrow">OUR SERVICES</p><h2 id="services-title">知財の可能性を広げる、<br class="mobile-break" />３つの支援。</h2></div>
+        <a href="/services/" class="text-link">事業内容を詳しく見る <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="section-intro">保有特許の活用から、これからの戦略づくりまで。<br />企業の課題に応じて、知的財産の価値を事業につなぐお手伝いをします。</p>
+      <ul class="service-cards">
+        {services.map((service, index) => (
+          <li>
+            <a class="service-card" href={`/services/#${service.id}`}>
+              <div class="card-top"><span class="service-number">0{index + 1}</span><span class="service-label">{serviceLabels[index]}</span></div>
+              <h3>{service.title}</h3>
+              <p>{service.summary}</p>
+              <span class="card-link">詳しく見る <span aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2>事業内容</h2>
-      <ul class="cards">
-        {
-          services.map((service) => (
-            <li class="card">
-              <h3>{service.title}</h3>
-              <p>{service.summary}</p>
-              <a href={`/services/#${service.id}`}>詳しく見る</a>
-            </li>
-          ))
-        }
+  <section class="home-section concerns-section" aria-labelledby="concerns-title">
+    <div class="container split-section">
+      <div><p class="eyebrow">YOUR CHALLENGES</p><h2 id="concerns-title">こんな課題を、<br />お持ちではありませんか。</h2><p class="section-intro">知財に関するお悩みを、<br />具体的な取り組みへ。</p></div>
+      <ul class="concern-list">
+        {concerns.map((concern) => (
+          <li><a href={`/services/#${concern.service.id}`}><div><h3>{concern.title}</h3><p>{concern.text}</p></div><span aria-hidden="true">↗</span></a></li>
+        ))}
       </ul>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="approach-title">
+    <div class="container">
+      <p class="eyebrow">OUR APPROACH</p>
+      <h2 id="approach-title">知財と事業を、同じ視点で。</h2>
+      <p class="section-intro">特許を保有することから、その先へ。<br />事業の中でどう活かすかを、ともに考えます。</p>
+      <ol class="principles">
+        {principles.map((principle, index) => (
+          <li><span class="principle-number">0{index + 1}</span><h3>{principle.title}</h3><p>{principle.text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="company-section" aria-labelledby="company-title">
+    <div class="container company-grid">
+      <div><p class="eyebrow">ABOUT US</p><h2 id="company-title">企業の知財に、<br />向き合うパートナー。</h2><p class="section-intro">ＡＭパートナーズ合同会社は、知的財産に関するコンサルティングを行う会社です。技術と事業のつながりを見据え、企業の知財に関する課題に寄り添います。</p><a href="/about/" class="text-link">会社概要を見る <span aria-hidden="true">→</span></a></div>
+      <dl class="company-details">
+        {company.filter((field) => ['商号', '代表社員', '所在地', '設立'].includes(field.label)).map((field) => (
+          <div><dt>{field.label}</dt><dd>{field.value}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="contact-section" aria-labelledby="contact-title">
+    <div class="container contact-inner">
+      <div><p class="eyebrow">CONTACT</p><h2 id="contact-title">知財の次の一歩を、<br class="mobile-break" />ここから。</h2><p>特許の活用や知財戦略、調査に関するご相談を承ります。</p></div>
+      <a href="/contact/" class="button contact-button">お問い合わせ <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .hero {
-    background: var(--color-bg-muted);
-    border-bottom: 1px solid var(--color-border);
-    padding: 72px 0 64px;
+  .hero { background: #102c40; color: #fff; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; padding-top: 74px; padding-bottom: 62px; }
+  .eyebrow { margin: 0 0 20px; color: var(--color-text-muted); font-size: .72rem; font-weight: 700; letter-spacing: .16em; }
+  .hero .eyebrow { color: #b7d3d7; display: flex; align-items: center; gap: 12px; font-size: .66rem; }
+  .hero .eyebrow span { width: 24px; height: 2px; background: #9bc9c8; flex-shrink: 0; }
+  h1 { margin: 0 0 24px; font-size: clamp(2.8rem, 5.5vw, 4.5rem); line-height: 1.35; letter-spacing: .06em; }
+  .hero-subtitle { margin: 0 0 18px; font-size: 1.15rem; font-weight: 700; letter-spacing: .04em; }
+  .hero-description { max-width: 470px; color: #c3d0da; font-size: .94rem; line-height: 2; margin: 0; }
+  .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+  .hero-button { background: #fff; color: #102c40; font-size: .88rem; padding: 14px 22px; }
+  .hero-button span { margin-left: 20px; }
+  .hero-link { color: #fff; font-size: .85rem; text-decoration: none; }
+  .hero-link span { margin-left: 12px; color: #a9d5d3; }
+  .hero-visual svg { display: block; width: 100%; height: auto; }
+  .hero-visual p { text-align: center; color: #94b5c1; font-size: .6rem; letter-spacing: .22em; margin: 0; }
+  .hero-bottom { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-top: 19px; padding-bottom: 19px; border-top: 1px solid #ffffff24; font-size: .73rem; color: #b8cbd5; }
+  .home-section { padding: 88px 0; }
+  h2 { margin: 0; font-size: clamp(1.45rem, 2.6vw, 2rem); line-height: 1.6; letter-spacing: .035em; }
+  .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  .section-intro { margin: 22px 0 0; color: var(--color-text-muted); font-size: .94rem; line-height: 2; }
+  .text-link { display: inline-flex; align-items: center; gap: 30px; padding-bottom: 6px; border-bottom: 1px solid var(--color-border); font-size: .85rem; text-decoration: none; font-weight: 700; }
+  .service-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; list-style: none; padding: 0; margin: 36px 0 0; }
+  .service-cards li { display: flex; }
+  .service-card { width: 100%; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); text-decoration: none; color: var(--color-text); transition: background .2s, border-color .2s; }
+  .service-card:hover { background: var(--color-bg-muted); border-color: var(--color-accent); }
+  .card-top { display: flex; align-items: center; gap: 16px; margin-bottom: 30px; }
+  .service-number { font-size: 2rem; font-weight: 400; color: var(--color-accent); line-height: 1; }
+  .service-label { font-size: .63rem; letter-spacing: .13em; color: var(--color-text-muted); }
+  h3 { font-size: 1.04rem; margin: 0 0 14px; line-height: 1.7; }
+  .service-card p { margin: 0 0 28px; font-size: .88rem; line-height: 1.95; color: var(--color-text-muted); flex: 1; }
+  .card-link { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--color-border); color: var(--color-accent); font-size: .81rem; font-weight: 700; }
+  .card-link > span { font-size: 1.2rem; }
+  .concerns-section { background: var(--color-bg-muted); }
+  .split-section { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; }
+  .concern-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+  .concern-list a { display: flex; align-items: center; gap: 24px; justify-content: space-between; color: var(--color-text); text-decoration: none; padding: 24px 0; border-bottom: 1px solid var(--color-border); }
+  .concern-list a:hover h3 { color: var(--color-accent); }
+  .concern-list h3 { margin: 0 0 6px; }
+  .concern-list p { margin: 0; font-size: .88rem; color: var(--color-text-muted); }
+  .concern-list a > span { color: var(--color-accent); font-size: 1.3rem; }
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; list-style: none; margin: 40px 0 0; padding: 0; }
+  .principles li { border-top: 1px solid var(--color-border); padding-top: 24px; }
+  .principle-number { display: block; color: var(--color-accent); font-size: .8rem; letter-spacing: .1em; margin-bottom: 16px; }
+  .principles p { font-size: .88rem; color: var(--color-text-muted); line-height: 2; margin: 0; }
+  .company-section { padding: 72px 0; background: var(--color-bg-muted); }
+  .company-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
+  .company-grid .text-link { margin-top: 28px; }
+  .company-details { margin: 0; border-top: 1px solid var(--color-border); font-size: .85rem; }
+  .company-details > div { display: grid; grid-template-columns: 5em 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--color-border); }
+  .company-details dt { color: var(--color-text-muted); }
+  .company-details dd { margin: 0; }
+  .contact-section { background: #102c40; color: #fff; padding: 56px 0; }
+  .contact-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .contact-section .eyebrow { color: #b7d3d7; margin-bottom: 12px; }
+  .contact-section p:not(.eyebrow) { color: #c3d0da; font-size: .9rem; margin: 14px 0 0; }
+  .contact-button { flex-shrink: 0; background: #fff; color: #102c40; padding: 18px 30px; font-size: .9rem; }
+  .contact-button span { margin-left: 48px; }
+  .mobile-break { display: none; }
+  a:focus-visible { outline: 3px solid #69a9ab; outline-offset: 5px; }
+  @media (max-width: 960px) {
+    .hero-grid { gap: 16px; }
+    .service-cards { gap: 16px; }
+    .service-card { padding: 22px; }
+    .split-section, .company-grid { gap: 40px; }
+    .principles { gap: 24px; }
   }
-
-  .hero h1 {
-    margin: 0 0 16px;
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-  }
-
-  .lead {
-    margin: 0 0 32px;
-    color: var(--color-text-muted);
-  }
-
-  h2 {
-    margin: 0 0 24px;
-    font-size: 1.5rem;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .card {
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card h3 {
-    margin: 0 0 12px;
-    font-size: 1.125rem;
-    color: var(--color-accent);
-  }
-
-  .card p {
-    margin: 0 0 16px;
-    flex: 1;
-    font-size: 0.9375rem;
-  }
-
   @media (max-width: 720px) {
-    .pc-only {
-      display: none;
-    }
+    .hero-grid { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 32px; gap: 24px; }
+    .hero-description { max-width: none; }
+    .hero-visual { width: min(100%, 340px); justify-self: center; }
+    .hero-subtitle { font-size: 1rem; }
+    .hero-actions { gap: 20px; }
+    .hero-bottom { font-size: .68rem; }
+    .home-section { padding: 56px 0; }
+    .section-heading { display: block; }
+    .section-heading > .text-link { margin-top: 20px; }
+    .service-cards, .principles, .split-section, .company-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 26px; }
+    .card-top { margin-bottom: 20px; }
+    .service-card p { margin-bottom: 20px; }
+    .split-section, .company-grid { gap: 32px; }
+    .company-section { padding: 56px 0; }
+    .contact-section { padding: 44px 0; }
+    .contact-inner { align-items: flex-start; flex-direction: column; gap: 24px; }
+    .mobile-break { display: block; }
   }
+  @media (prefers-reduced-motion: reduce) { .service-card { transition: none; } }
 </style>

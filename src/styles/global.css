@@ -10,8 +10,8 @@
   --color-notice-border: #e8c46a;
 
   --font-sans: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
-  --max-width: 960px;
-  --gutter: 16px;
+  --max-width: 1120px;
+  --gutter: 24px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,6 +56,11 @@ main {
 
 a {
   color: var(--color-accent);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 h1,

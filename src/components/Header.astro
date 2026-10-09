@@ -12,7 +12,7 @@ const currentPath = Astro.url.pathname;
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>
+              <a href={item.href} class:list={{ 'contact-link': item.href === '/contact/' }} aria-current={currentPath === item.href ? 'page' : undefined}>
                 {item.label}
               </a>
             </li>
@@ -34,8 +34,8 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     justify-content: space-between;
     gap: 8px 24px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 22px;
+    padding-bottom: 22px;
   }
 
   .logo {
@@ -47,6 +47,7 @@ const currentPath = Astro.url.pathname;
 
   ul {
     display: flex;
+    align-items: center;
     gap: 20px;
     list-style: none;
     margin: 0;
@@ -62,5 +63,25 @@ const currentPath = Astro.url.pathname;
   nav a:hover,
   nav a[aria-current='page'] {
     color: var(--color-accent);
+  }
+
+  nav a.contact-link {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 720px) {
+    .inner {
+      gap: 14px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .logo { font-size: 1rem; }
+    ul { gap: 18px; }
+    nav a { font-size: .8rem; }
+    nav a.contact-link { padding: 6px 12px; }
   }
 </style>
