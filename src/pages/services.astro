@@ -7,39 +7,63 @@ import { services } from '../data/site';
   <div class="page-header">
     <div class="container">
       <h1>事業内容</h1>
+      <p class="page-intro">特許の活用、知財戦略、調査・分析。<br />企業の知的財産に関する課題に応じて、３つの領域で支援します。</p>
     </div>
   </div>
 
   <div class="section">
     <div class="container">
+      <nav class="service-nav" aria-label="事業内容の一覧">
+        {services.map((service, index) => (
+          <a href={`#${service.id}`}><span>0{index + 1}</span>{service.title}<span aria-hidden="true">↓</span></a>
+        ))}
+      </nav>
       {
-        services.map((service) => (
-          <section id={service.id} class="service">
-            <h2>{service.title}</h2>
-            <p>{service.summary}</p>
-            <ul>
+        services.map((service, index) => (
+          <section id={service.id} class="service" aria-labelledby={`${service.id}-title`}>
+            <div class="service-introduction">
+              <span class="service-number">0{index + 1}</span>
+              <h2 id={`${service.id}-title`}>{service.title}</h2>
+              <p class="service-summary">{service.summary}</p>
+              <p class="service-description">{service.description}</p>
+            </div>
+            <ul class="service-details" aria-label="主な支援内容">
               {service.details.map((detail) => (
-                <li>{detail}</li>
+                <li><h3>{detail.title}</h3><p>{detail.description}</p></li>
               ))}
             </ul>
           </section>
         ))
       }
 
-      <p class="cta">
-        ご相談は<a href="/contact/">お問い合わせ</a>ページをご覧ください。
-      </p>
+      <div class="cta">
+        <div><h2>知財に関するご相談</h2><p>保有特許の活用や知財戦略、調査について、ご相談内容の概要をお聞かせください。</p></div>
+        <a href="/contact/" class="button">お問い合わせ <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </div>
 </BaseLayout>
 
 <style>
+  .page-intro { margin: 18px 0 0; color: var(--color-text-muted); font-size: .9375rem; }
+
+  .service-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
+  .service-nav a { display: flex; align-items: center; gap: 12px; border: 1px solid var(--color-border); padding: 16px; text-decoration: none; font-size: .8125rem; font-weight: 700; }
+  .service-nav a:hover { background: var(--color-bg-muted); }
+  .service-nav a > span:first-child { font-weight: 400; }
+  .service-nav a > span:last-child { margin-left: auto; }
+
   .service {
-    padding-bottom: 32px;
-    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
+    padding-bottom: 56px;
+    margin-bottom: 56px;
     border-bottom: 1px solid var(--color-border);
     scroll-margin-top: 24px;
   }
+
+  .service-number { display: block; margin-bottom: 16px; color: var(--color-accent); font-size: 1.75rem; line-height: 1; }
 
   .service h2 {
     margin: 0 0 12px;
@@ -48,15 +72,41 @@ import { services } from '../data/site';
   }
 
   .service p {
-    margin: 0 0 12px;
+    margin: 0;
   }
+
+  .service .service-summary { margin-bottom: 20px; font-weight: 700; font-size: .9375rem; line-height: 1.9; }
+  .service-description { color: var(--color-text-muted); font-size: .9375rem; line-height: 2; }
 
   .service ul {
     margin: 0;
-    padding-left: 1.25em;
+    padding: 0;
+    list-style: none;
   }
 
+  .service-details li { border-top: 1px solid var(--color-border); padding: 20px 0; }
+  .service-details li:last-child { padding-bottom: 0; }
+  .service-details h3 { margin: 0 0 10px; font-size: 1rem; }
+  .service-details p { color: var(--color-text-muted); font-size: .875rem; line-height: 2; }
+
   .cta {
-    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 32px;
+    background: var(--color-bg-muted);
+  }
+  .cta h2 { margin: 0 0 10px; font-size: 1.25rem; }
+  .cta p { margin: 0; color: var(--color-text-muted); font-size: .875rem; }
+  .cta .button { flex-shrink: 0; font-size: .875rem; }
+  .cta .button span { margin-left: 24px; }
+
+  @media (max-width: 960px) { .service { gap: 36px; } }
+  @media (max-width: 720px) {
+    .service-nav, .service { grid-template-columns: 1fr; }
+    .service-nav { gap: 10px; margin-bottom: 40px; }
+    .service { gap: 28px; padding-bottom: 40px; margin-bottom: 40px; }
+    .cta { flex-direction: column; align-items: flex-start; padding: 24px; }
   }
 </style>
