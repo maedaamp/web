@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="ページが見つかりません" description="お探しのページが見つかりませんでした。トップページまたは各ページのリンクからご覧ください。" noIndex>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <div class="container">
+      <p class="error-code" aria-hidden="true">404</p>
+      <p class="eyebrow">PAGE NOT FOUND</p>
+      <h1 id="not-found-title">ページが見つかりません。</h1>
+      <p class="description">お探しのページは、移動または削除された可能性があります。<br class="desktop-break" />URLをご確認いただくか、下記のリンクからご覧ください。</p>
+      <a href="/" class="button">トップページへ戻る <span aria-hidden="true">→</span></a>
+      <nav class="page-links" aria-label="関連ページ">
+        <a href="/services/">事業内容 <span aria-hidden="true">↗</span></a>
+        <a href="/about/">会社概要 <span aria-hidden="true">↗</span></a>
+        <a href="/contact/">お問い合わせ <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { padding: 72px 0 88px; text-align: center; }
+  .error-code { margin: 0; color: var(--color-accent); font-size: clamp(6rem, 14vw, 10rem); font-weight: 400; line-height: 1.1; letter-spacing: .06em; }
+  .eyebrow { margin: 18px 0 32px; color: var(--color-text-muted); font-size: .75rem; letter-spacing: .16em; }
+  h1 { margin: 0 0 20px; font-size: clamp(1.4rem, 3vw, 2rem); }
+  .description { margin: 0 auto 32px; max-width: 600px; color: var(--color-text-muted); font-size: .9375rem; line-height: 2; }
+  .button { font-size: .9375rem; }
+  .button span { margin-left: 24px; }
+  .page-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 28px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid var(--color-border); max-width: 600px; }
+  .page-links a { font-size: .875rem; text-decoration: none; }
+  .page-links a:hover { text-decoration: underline; }
+  .page-links span { margin-left: 10px; }
+  @media (max-width: 720px) {
+    .not-found { padding: 48px 0 56px; }
+    .desktop-break { display: none; }
+    .page-links { gap: 16px 20px; }
+  }
+</style>
