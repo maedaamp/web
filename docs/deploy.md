@@ -2,7 +2,7 @@
 
 このサイトは静的サイト（`astro build` で `dist/` に出力）のため、Cloudflare 用アダプターは使わず、`dist/` を Workers の静的アセットとして配信している。
 
-- 公開URL: https://am-partners.maeda-faf.workers.dev
+- 公開URL: https://am-partners.org（独自ドメインの設定は [custom-domain.md](./custom-domain.md) を参照）
 - 設定ファイル: `wrangler.jsonc`
 
 ## 初回セットアップ（実施済み）
@@ -50,27 +50,15 @@ npx wrangler login
 npm run build && npx wrangler deploy
 ```
 
-完了すると公開 URL とバージョン ID が表示される。
+完了すると公開先（`am-partners.org (custom domain)`）とバージョン ID が表示される。
 
 ### 注意
 
 初回デプロイ直後は、workers.dev の URL が反映されるまで数十秒ほど `Error code: 1042`（404）が返ることがある。少し待てば解消する。
 
+独自ドメインを設定（`routes` を追加）してからは、workers.dev の URL（`https://am-partners.maeda-faf.workers.dev`）は自動で無効になっている。
+
 ## 今後の作業
-
-### 独自ドメイン（am-partners.org）の設定
-
-1. Cloudflare ダッシュボードの「Add a domain」で `am-partners.org` を追加し、レジストラ側でネームサーバーを Cloudflare 指定の値に変更する。
-2. `wrangler.jsonc` に以下を追加して再デプロイする。
-
-   ```jsonc
-   "routes": [
-     { "pattern": "am-partners.org", "custom_domain": true },
-     { "pattern": "www.am-partners.org", "custom_domain": true }
-   ]
-   ```
-
-   ダッシュボードの Workers → am-partners → Settings → Domains & Routes から追加してもよい。
 
 ### （任意）GitHub 連携による自動デプロイ
 
