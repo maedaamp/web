@@ -72,3 +72,21 @@ export const company: readonly CompanyField[] = [
   { label: '事業内容', value: '知的財産に関するコンサルティング' },
   { label: 'お問い合わせ', value: site.email },
 ];
+
+export type CloudService = {
+  readonly name: string;
+  readonly purpose: string;
+  readonly providerCountry: string;
+  readonly storageCountry: string;
+};
+
+// プライバシーポリシーの「外的環境の把握」に掲載する。
+// 個人データを扱うサービスの利用を開始・変更したら、ここを更新する。
+export const cloudServices: readonly CloudService[] = [
+  {
+    name: 'Google Workspace（Google LLC）',
+    purpose: 'メールの送受信、文書・ファイルの作成および保存',
+    providerCountry: '米国',
+    storageCountry: '米国その他Google LLCがデータセンターを置く国',
+  },
+];
