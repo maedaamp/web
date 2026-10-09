@@ -13,6 +13,7 @@ Cloudflare Workers にデプロイしたサイト（`am-partners`）を `https:/
 | www | `www.am-partners.org` → `https://am-partners.org` へ 301 リダイレクト |
 | HTTP | Always Use HTTPS により HTTPS へ 301 リダイレクト |
 | メール | Google Workspace（MX 5件、SPF・サイト確認用の TXT 2件） |
+| メール認証 | SPF・DKIM・DMARC（`p=none`）設定済み。詳細は「4. メール認証」を参照 |
 
 ドメイン・Worker・DNS はすべて同じアカウントにある必要がある。Worker に独自ドメインを割り当てられるのは、同じアカウント内のドメインだけ。
 
@@ -109,6 +110,46 @@ location: https://am-partners.org/about/
 HTTP/2 200
 ```
 
+## 4. メール認証（SPF・DKIM・DMARC）
+
+`@am-partners.org` を名乗るなりすましメールを防ぎ、送信メールが迷惑メール扱いされにくくするための設定。
+
+| 仕組み | 役割 | DNS レコード |
+| --- | --- | --- |
+| SPF | このドメインのメールを送ってよいサーバーを公開する | `am-partners.org` の TXT: `v=spf1 include:_spf.google.com -all` |
+| DKIM | 送信メールに電子署名を付け、受信側が DNS の公開鍵で検証する | `google._domainkey` の TXT: `v=DKIM1; k=rsa; p=...` |
+| DMARC | SPF・DKIM に失敗したメールの扱いを受信側に指示し、結果のレポートを受け取る | `_dmarc` の TXT: `v=DMARC1; p=none; rua=mailto:...@dmarc-reports.cloudflare.net` |
+
+### DKIM（設定済み）
+
+1. Google 管理コンソール（https://admin.google.com）→「アプリ」→「Google Workspace」→「Gmail」→「メールの認証」で、ドメイン `am-partners.org` を選ぶ。
+2. 「新しいレコードを生成」で鍵を作る（2048 ビット、セレクタ `google`）。
+3. 表示された値を、Cloudflare の DNS → Records に TXT（Name: `google._domainkey`）で登録する。255 文字を超える値もそのまま貼り付けてよい。
+4. 反映後、管理コンソールで「認証を開始」を押す。ステータスが「DKIM でメールを認証しています」になれば完了。
+
+設定後に「新しいレコードを生成」を押すと鍵が作り直され、DNS の登録もやり直しになる。「認証を停止」を押すと署名が止まる。
+
+### DMARC（設定済み、`p=none`）
+
+Cloudflare の「Email」→「DMARC Management」を有効にすると、`_dmarc` の TXT レコードが自動で追加される。レポートは Cloudflare が受け取り、同じ画面で集計を確認できる。最初のレポートは有効化から 24 時間ほどで届く。
+
+DMARC Management 画面の表示の見方:
+
+| 項目 | 表示 | 意味 |
+| --- | --- | --- |
+| DMARC policy | None（Warning） | `p=none` のため。段階的に厳しくする予定なので現時点では問題ない。 |
+| SPF policy | Fail | SPF の末尾が `-all`（許可外の送信元は失敗扱い）であることを示しているとみられる。レコードは正しく公開されている。 |
+| DKIM in use | Yes | 正常。 |
+| BIMI in use | No（Fail） | 受信画面にロゴを表示する仕組み。DMARC の強制設定と有料証明書が必要なため、対応しない。 |
+
+### 確認コマンド
+
+```bash
+dig +short TXT am-partners.org
+dig +short TXT google._domainkey.am-partners.org
+dig +short TXT _dmarc.am-partners.org
+```
+
 ## うまくいかないとき
 
 | 症状 | 主な原因と対処 |
@@ -121,5 +162,6 @@ HTTP/2 200
 
 ## 今後の作業（任意）
 
-- **DKIM・DMARC の設定**: 現在は SPF のみ。Google 管理コンソールで DKIM を有効にして `google._domainkey` の TXT レコードを追加し、`_dmarc` の TXT レコードも追加すると、なりすましメール対策になり、送信メールが迷惑メール扱いされにくくなる。
+- **DMARC のポリシーを段階的に厳しくする**: DMARC Management のレポートを 2〜4 週間確認し、送信元が Google Workspace（と利用している正規サービス）だけで、いずれも SPF・DKIM に合格していれば、`_dmarc` の `p=none` を `p=quarantine` に変更する。しばらく様子を見て問題がなければ `p=reject` にする。
+  - Google Workspace 以外に `@am-partners.org` で送信するサービス（問い合わせフォームの通知、メール配信サービスなど）を使う場合は、厳しくする前にそのサービスも SPF・DKIM に対応させる。対応していないと、そのメールが届かなくなる。
 - **移管元アカウントの整理**: 個人アカウント（mdamtu@gmail.com）に `am-partners.org` のゾーンが残っていれば削除する。
