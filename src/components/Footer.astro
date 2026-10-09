@@ -1,0 +1,52 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div>
+      <p class="name">{site.name}</p>
+      <p>お問い合わせ：<a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div class="meta">
+      <a href="/privacy/">プライバシーポリシー</a>
+      <small>&copy; {year} {site.name}</small>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-muted);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .name {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+</style>

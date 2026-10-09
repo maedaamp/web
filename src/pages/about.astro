@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { company } from '../data/site';
+---
+
+<BaseLayout title="会社概要">
+  <div class="page-header">
+    <div class="container">
+      <h1>会社概要</h1>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <dl>
+        {
+          company.map((field) => (
+            <div class="row">
+              <dt>{field.label}</dt>
+              <dd>{field.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  dl {
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 10em 1fr;
+    gap: 8px 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  dt {
+    font-weight: 700;
+  }
+
+  dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 560px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+</style>

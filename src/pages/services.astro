@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/site';
+---
+
+<BaseLayout title="事業内容">
+  <div class="page-header">
+    <div class="container">
+      <h1>事業内容</h1>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      {
+        services.map((service) => (
+          <section id={service.id} class="service">
+            <h2>{service.title}</h2>
+            <p>{service.summary}</p>
+            <ul>
+              {service.details.map((detail) => (
+                <li>{detail}</li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+
+      <p class="cta">
+        ご相談は<a href="/contact/">お問い合わせ</a>ページをご覧ください。
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .service {
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--color-border);
+    scroll-margin-top: 24px;
+  }
+
+  .service h2 {
+    margin: 0 0 12px;
+    font-size: 1.375rem;
+    color: var(--color-accent);
+  }
+
+  .service p {
+    margin: 0 0 12px;
+  }
+
+  .service ul {
+    margin: 0;
+    padding-left: 1.25em;
+  }
+
+  .cta {
+    margin: 0;
+  }
+</style>

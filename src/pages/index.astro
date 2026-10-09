@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/site';
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container">
+      <h1>特許を、事業の力に。</h1>
+      <p class="lead">
+        ＡＭパートナーズ合同会社は、特許の活用・収益化から知財戦略の策定、先行技術調査まで、<br class="pc-only" />
+        企業の知的財産に関する課題に寄り添う知財コンサルティング会社です。
+      </p>
+      <a href="/contact/" class="button">お問い合わせ</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>事業内容</h2>
+      <ul class="cards">
+        {
+          services.map((service) => (
+            <li class="card">
+              <h3>{service.title}</h3>
+              <p>{service.summary}</p>
+              <a href={`/services/#${service.id}`}>詳しく見る</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: var(--color-bg-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding: 72px 0 64px;
+  }
+
+  .hero h1 {
+    margin: 0 0 16px;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .lead {
+    margin: 0 0 32px;
+    color: var(--color-text-muted);
+  }
+
+  h2 {
+    margin: 0 0 24px;
+    font-size: 1.5rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card h3 {
+    margin: 0 0 12px;
+    font-size: 1.125rem;
+    color: var(--color-accent);
+  }
+
+  .card p {
+    margin: 0 0 16px;
+    flex: 1;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 720px) {
+    .pc-only {
+      display: none;
+    }
+  }
+</style>
